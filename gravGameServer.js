@@ -7,6 +7,7 @@ app.listen(80);
 
 function handler (req, res) {
   var getJs = /game-script\.js$/;
+  var getSprite = /game-sprite\.png$/;
   var urlpath = url.parse(req.url).pathname;
   var errFunc = function (err, data) {
     if (err) {
@@ -20,6 +21,10 @@ function handler (req, res) {
   if(getJs.test(urlpath)){
     res.writeHead(200, {"Content-Type": "text/javascript"});
     fs.readFile(__dirname + '/game-script.js', errFunc);
+  }
+  else if(getSprite.test(urlpath)){
+    res.writeHead(200, {"Content-Type" : "image/png"});
+    fs.readFile(__dirname + '/game-sprite.png', errFunc);
   }
   else{
     res.writeHead(200, {"Content-Type": "text/html"});
